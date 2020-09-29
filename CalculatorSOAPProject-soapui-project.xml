@@ -298,7 +298,12 @@
 import groovy.util.XmlSlurper
 import jxl.*
 //Create a file instance
-def excelFilePath ="C:\\Users\\hpore\\OneDrive\\Documents\\soaptesting\\testdata1.xls"
+groovyutils = new com.eviware.soapui.support.GroovyUtils(context)
+projectpath = groovyutils.projectPath
+
+log.info ("projectpath="+ projectpath)
+def excelFilePath = projectpath+"\\testdata1.xls"
+
 File excelFile = new File(excelFilePath)
 //Create workbook instace
 jxl.Workbook workbook = jxl.Workbook.getWorkbook(excelFile)
@@ -325,6 +330,7 @@ for(int rowIdx in 1..noOfRows){
 	def xmlSlurper= new XmlSlurper()
 	def xmlAddResponse=xmlSlurper.parseText(addResponse.responseContentAsXml)
 	log.info(xmlAddResponse)
+	
 	log.info ("-----------------------------------------")
 	log.info "Executing Divide request .....intA=$number1 ,intB=$number2.......$number1 / $number2..."
 	def divideResponse=testRunner.testCase.testSuite.getTestCaseByName("Calculate").getTestStepByName("Divide").run(testRunner, context)
@@ -353,8 +359,13 @@ workbook.close()</script>
 def groovyUtils = new GroovyUtils(context)
 def requestXmlHolder,responseXmlHolder
 //loop through file and read the content
-File dataFile = new File("C:\\Users\\hpore\\OneDrive\\Documents\\soaptesting\\data.txt")
 
+groovyutils = new com.eviware.soapui.support.GroovyUtils(context)
+projectpath = groovyutils.projectPath
+
+log.info ("projectpath="+ projectpath)
+def csvFilePath = projectpath+"\\data.txt"
+File dataFile = new File(csvFilePath)
 dataFile.eachLine{
 	line->
 	//log.info line
@@ -561,7 +572,7 @@ log.info (additionResult)</scriptText>
       <con:properties>
         <con:property>
           <con:name>intA</con:name>
-          <con:value>9</con:value>
+          <con:value>6</con:value>
         </con:property>
         <con:property>
           <con:name>intB</con:name>
